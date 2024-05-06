@@ -1,0 +1,109 @@
+﻿@model WebApp.ViewModel.Home.ViewServiceDataViewModel
+@{
+    ViewBag.Title = "View Service Data";
+    ViewBag.Description = "View Service Data";
+    ViewBag.Keywords = "View Service Data";
+}
+<h1>View Microservices Data</h1>
+<h2>Logging Microservice</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Create Date</td>
+            <td>Application</td>
+            <td>Category</td>
+            <td>Message</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var log in Model.LogMessages)
+        {
+            <tr>
+                <td>@log.StorageKey</td>
+                <td>@log.CreateDate</td>
+                <td>@log.Application</td>
+                <td>@log.Category</td>
+                <td>@log.Message</td>
+            </tr>
+        }
+        <tr>            
+        </tr>
+    </tbody>
+</table>
+
+<h2>Cache Microservice</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Key</td>
+            <td>Value</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cachedata in Model.CacheDatas)
+        {
+            <tr>
+                <td>@cachedata.StorageKey</td>
+                <td>@cachedata.Key</td>
+                <td>@cachedata.Value</td>
+            </tr>
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Notification Microservice</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Create Date</td>
+            <td>SenderType</td>
+            <td>To Address</td>
+            <td>Body</td>
+            <td>Complete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var notify in Model.Notifications)
+        {
+            <tr>
+                <td>@notify.StorageKey</td>
+                <td>@notify.CreateDate</td>
+                <td>@notify.SenderTypeKey</td>
+                <td>@notify.ToAddress</td>
+                <td>@notify.Body</td>
+                <td>@notify.IsComplete</td>
+            </tr>
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>
+
+
+<h2>Security Microservice</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Create Date</td>
+            <td>Email</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.StorageKey</td>
+                <td>@user.CreateDate</td>
+                <td>@user.Email</td>
+            </tr>
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>

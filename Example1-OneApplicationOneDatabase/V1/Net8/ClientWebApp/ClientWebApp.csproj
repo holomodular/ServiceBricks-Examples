@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ServiceBricks.Cache" Version="1.0.5" />
+		<PackageReference Include="ServiceBricks.Notification" Version="1.0.5" />
+		<PackageReference Include="ServiceBricks.Logging" Version="1.0.5" />
+		<PackageReference Include="ServiceBricks.Security" Version="1.0.5" />
+	</ItemGroup>
+</Project>
