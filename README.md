@@ -45,8 +45,14 @@ This example demonstrates how to host the ServiceBricks platform in a **single w
 This example demonstrates how to host the ServiceBricks platform in **multiple web applications** and have all pre-built microservices store their data in a **single database** using the database engine you specify.
 
 ### Service Bus Required
+
 This example requires the use of a Service Bus provider to communicate asynchronous messages between microservices.
 It is setup to use Azure Service Bus, Basic with queues, but you can also use standard/advanced with topics and subscriptions.
+
+### Centralized Logging
+
+By using the same logging database for all logging microservices in all web applications, you achieve centralized logging. 
+You can query one place to view logging messages for the entire infrastructure.
 
 ## Diagram
 
@@ -60,8 +66,14 @@ It is setup to use Azure Service Bus, Basic with queues, but you can also use st
 This example demonstrates how to host the ServiceBricks platform in **multiple web applications** and have all pre-built microservices store their data in **multiple databases** using the database engine(s) you specify.
 
 ### Service Bus Required
+
 This example requires the use of a Service Bus provider to communicate asynchronous messages between microservices.
-It is setup to use Azure Service Bus, Basic with queues, but you can also use standard or premium with topics and subscriptions.
+It is setup to use Azure Service Bus, Basic with queues, but you can also use standard/advanced with topics and subscriptions.
+
+### Service-Specific Logging
+
+By using a separate logging database for each web application, you achieve service-specific logging. 
+You will have to query each logging microservice on each web application to view all messages in the infrastructure.
 
 ## Diagram
 ![Example 4 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example4-MultipleApplicationsMultipleDatabases/Example4.png) 
