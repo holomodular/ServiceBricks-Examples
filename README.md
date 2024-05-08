@@ -15,68 +15,81 @@ All of these examples use the official pre-built microservices we have available
 * [Notification Microservice](https://github.com/holomodular/ServiceBricks-Notification)
 * [Security Microservice](https://github.com/holomodular/ServiceBricks-Security)
 
+# Deployment Examples
 
-# Example 1 - One Application One Database
+## Example 1 - One Application One Database
 
-## Purpose
+### Purpose
 
 This example demonstrates how to host the ServiceBricks platform in a **single web application** and have all pre-built microservices store their data in a **single database** using the database engine you specify.
 
-## Diagram
+#### In-Memory Service Bus
+
+Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other.
+
+### Diagram
 
 ![Example 1 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example1-OneApplicationOneDatabase/Example1.png)  
 
 
-# Example 2 - One Application Multiple Databases
+## Example 2 - One Application Multiple Databases
 
-## Purpose
+### Purpose
 
 This example demonstrates how to host the ServiceBricks platform in a **single web application** and have all pre-built microservices store their data in **multiple databases** using the database engine(s) you specify.
 
-## Diagram
+#### In-Memory Service Bus
+
+Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other.
+
+### Diagram
 
 ![Example 2 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example2-OneApplicationMultipleDatabases/Example2.png) 
 
 
-# Example 3 - Multiple Applications One Database
+## Example 3 - Multiple Applications One Database
 
-## Purpose
+### Purpose
 
 This example demonstrates how to host the ServiceBricks platform in **multiple web applications** and have all pre-built microservices store their data in a **single database** using the database engine you specify.
 
-### Service Bus Required
+#### Service Bus Required
 
 This example requires the use of a Service Bus provider to communicate asynchronous messages between microservices.
 It is setup to use Azure Service Bus, Basic with queues, but you can also use standard/advanced with topics and subscriptions.
 
-### Centralized Logging
-
-By using the same logging database for all logging microservices in all web applications, you achieve centralized logging. 
-You can query one place to view logging messages for the entire infrastructure.
-
-## Diagram
+### Diagram
 
 ![Example 3 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example3-MultipleApplicationsOneDatabase/Example3.png) 
 
 
-# Example 4 - Multiple Applications Multiple Databases
+## Example 4 - Multiple Applications Multiple Databases
 
-## Purpose
+### Purpose
 
 This example demonstrates how to host the ServiceBricks platform in **multiple web applications** and have all pre-built microservices store their data in **multiple databases** using the database engine(s) you specify.
 
-### Service Bus Required
+#### Service Bus Required
 
 This example requires the use of a Service Bus provider to communicate asynchronous messages between microservices.
 It is setup to use Azure Service Bus, Basic with queues, but you can also use standard/advanced with topics and subscriptions.
 
-### Service-Specific Logging
+#### Service-Specific Logging (option)
 
 By using a separate logging database for each web application, you achieve service-specific logging. 
 You will have to query each logging microservice on each web application to view all messages in the infrastructure.
 
-## Diagram
+#### Centralized Logging (option)
+
+By using the same logging database for all logging microservices in all web applications, you achieve centralized logging. 
+You can query one place to view logging messages for the entire infrastructure.
+
+### Diagram
 ![Example 4 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example4-MultipleApplicationsMultipleDatabases/Example4.png) 
+
+Alternatively, you can also setup:
+
+![Example 4 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example4-MultipleApplicationsMultipleDatabases/Example4CentralizedLogging.png) 
 
 
 # Feedback
