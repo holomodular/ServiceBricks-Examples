@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.CookiePolicy;
-using ServiceBricks;
+﻿using ServiceBricks;
 using ServiceBricks.Logging;
 using ServiceBricks.Security;
-using SQLitePCL;
 
 namespace WebApp.Extensions
 {
@@ -18,6 +16,7 @@ namespace WebApp.Extensions
 
             // Exception handling middleware
             app.UseMiddleware<ExceptionMiddleware>();
+
             return app;
         }
 

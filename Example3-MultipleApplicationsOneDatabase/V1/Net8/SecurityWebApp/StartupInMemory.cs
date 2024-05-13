@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.InMemory;
 using ServiceBricks.Security.InMemory;
+using ServiceBricks.ServiceBus.Azure;
 using System.Configuration;
 using WebApp.Extensions;
 
@@ -19,6 +20,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingInMemory(Configuration);
             services.AddServiceBricksSecurityInMemory(Configuration);
             services.AddCustomWebsite(Configuration);
@@ -31,6 +33,7 @@ namespace WebApp
             app.StartServiceBricksLoggingInMemory();
             app.StartServiceBricksSecurityInMemory();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupInMemory>>();
             logger.LogInformation("Application Started");
         }

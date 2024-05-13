@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.AzureDataTables;
 using ServiceBricks.Notification.AzureDataTables;
-using ServiceBricks.Security.Member;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
-using ServiceBricks.Security;
+using ServiceBricks.Security.Member;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -22,6 +22,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingAzureDataTables(Configuration);
             services.AddServiceBricksNotificationAzureDataTables(Configuration);
             //services.AddServiceBricksNotificationSendGrid(Configuration);
@@ -35,8 +36,9 @@ namespace WebApp
             app.StartServiceBricks();
             app.StartServiceBricksLoggingAzureDataTables();
             app.StartServiceBricksNotificationAzureDataTables();
-            app.StartServiceBrickSecurityMember();
+            app.StartServiceBricksSecurityMember();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupAzureDataTables>>();
             logger.LogInformation("Application Started");
         }

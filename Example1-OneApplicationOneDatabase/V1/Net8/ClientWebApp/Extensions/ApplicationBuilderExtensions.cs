@@ -9,14 +9,11 @@ namespace WebApp.Extensions
     {
         private static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
         {
-            //// Microsoft.Extensions.Logging middleware
-            //app.UseMiddleware<CustomLoggerMiddleware>();
-
-            //// Web request logging middleware
-            //app.UseMiddleware<WebRequestMessageMiddleware>();
+            // THIS CLIENT WEBSITE DOES NOT RUN ANY SERVICEBRICKS MICROSERVICES
 
             // Exception handling middleware
             app.UseMiddleware<ExceptionMiddleware>();
+
             return app;
         }
 

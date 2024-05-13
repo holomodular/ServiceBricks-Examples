@@ -5,6 +5,7 @@ using ServiceBricks.Cache.AzureDataTables;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Security.Member;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -20,6 +21,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingAzureDataTables(Configuration);
             services.AddServiceBricksCacheAzureDataTables(Configuration);
             services.AddServiceBricksSecurityMember(Configuration);
@@ -32,8 +34,9 @@ namespace WebApp
             app.StartServiceBricks();
             app.StartServiceBricksLoggingAzureDataTables();
             app.StartServiceBricksCacheAzureDataTables();
-            app.StartServiceBrickSecurityMember();
+            app.StartServiceBricksSecurityMember();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupAzureDataTables>>();
             logger.LogInformation("Application Started");
         }

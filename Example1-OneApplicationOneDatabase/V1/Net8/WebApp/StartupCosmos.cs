@@ -8,6 +8,7 @@ using ServiceBricks.Security.Cosmos;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -23,10 +24,11 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
             services.AddServiceBricksLoggingCosmos(Configuration);
             services.AddServiceBricksCacheCosmos(Configuration);
             services.AddServiceBricksNotificationCosmos(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration);
+            //services.AddServiceBricksNotificationSendGrid(Configuration);  // optional
             services.AddServiceBricksSecurityCosmos(Configuration);
             services.AddCustomWebsite(Configuration);
             services.AddServiceBricksComplete();
@@ -40,6 +42,7 @@ namespace WebApp
             app.StartServiceBricksNotificationCosmos();
             app.StartServiceBricksSecurityCosmos();
             app.StartCustomWebsite(webHostEnvironment);
+            //app.StartServiceBricksServiceBusAzure();  // optional
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupCosmos>>();
             logger.LogInformation("Application Started");
         }

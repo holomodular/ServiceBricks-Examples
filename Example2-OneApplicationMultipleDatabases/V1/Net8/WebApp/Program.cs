@@ -27,7 +27,7 @@ namespace WebApp
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<StartupSqlServer>();
+                    webBuilder.UseStartup<StartupInMemory>();
                 });
         }
     }

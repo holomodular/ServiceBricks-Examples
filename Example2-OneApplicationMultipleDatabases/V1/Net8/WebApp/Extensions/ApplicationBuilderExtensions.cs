@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.CookiePolicy;
-using ServiceBricks;
+﻿using ServiceBricks;
 using ServiceBricks.Logging;
 using ServiceBricks.Security;
-using SQLitePCL;
 
 namespace WebApp.Extensions
 {
@@ -18,6 +16,7 @@ namespace WebApp.Extensions
 
             // Exception handling middleware
             app.UseMiddleware<ExceptionMiddleware>();
+
             return app;
         }
 
@@ -72,8 +71,14 @@ namespace WebApp.Extensions
                 // Get Business Rule Service
                 var businessRuleService = scope.ServiceProvider.GetRequiredService<IBusinessRuleService>();
 
-                // Execute the process (if user already exists, will be handled)
+                // Execute the process
                 var response = businessRuleService.ExecuteProcess(registerAdminProcess);
+                if (response.Error)
+                {
+                    var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+                    var logger = loggerFactory.CreateLogger("ApplicationBuilderExtensions");
+                    logger.LogError($"Error creating unit test user {response}");
+                }
             }
 
             return builder;

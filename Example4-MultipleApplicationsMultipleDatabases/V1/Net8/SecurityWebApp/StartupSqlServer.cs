@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.SqlServer;
 using ServiceBricks.Security.SqlServer;
+using ServiceBricks.ServiceBus.Azure;
 using System.Configuration;
 using WebApp.Extensions;
 
@@ -19,6 +20,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingSqlServer(Configuration);
             services.AddServiceBricksSecuritySqlServer(Configuration);
             services.AddCustomWebsite(Configuration);
@@ -31,6 +33,7 @@ namespace WebApp
             app.StartServiceBricksLoggingSqlServer();
             app.StartServiceBricksSecuritySqlServer();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlServer>>();
             logger.LogInformation("Application Started");
         }

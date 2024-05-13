@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.Sqlite;
 using ServiceBricks.Security.Sqlite;
+using ServiceBricks.ServiceBus.Azure;
 using System.Configuration;
 using WebApp.Extensions;
 
@@ -19,6 +20,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingSqlite(Configuration);
             services.AddServiceBricksSecuritySqlite(Configuration);
             services.AddCustomWebsite(Configuration);
@@ -31,6 +33,7 @@ namespace WebApp
             app.StartServiceBricksLoggingSqlite();
             app.StartServiceBricksSecuritySqlite();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlite>>();
             logger.LogInformation("Application Started");
         }

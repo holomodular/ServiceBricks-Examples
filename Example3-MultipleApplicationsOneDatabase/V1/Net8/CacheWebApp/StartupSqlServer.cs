@@ -5,6 +5,7 @@ using ServiceBricks.Cache.SqlServer;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Security.Member;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -20,6 +21,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingSqlServer(Configuration);
             services.AddServiceBricksCacheSqlServer(Configuration);
             services.AddServiceBricksSecurityMember(Configuration);
@@ -32,8 +34,9 @@ namespace WebApp
             app.StartServiceBricks();
             app.StartServiceBricksLoggingSqlServer();
             app.StartServiceBricksCacheSqlServer();
-            app.StartServiceBrickSecurityMember();
+            app.StartServiceBricksSecurityMember();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlServer>>();
             logger.LogInformation("Application Started");
         }

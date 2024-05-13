@@ -7,6 +7,7 @@ using ServiceBricks.Security.SqlServer;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -22,10 +23,11 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
             services.AddServiceBricksLoggingSqlServer(Configuration);
             services.AddServiceBricksCacheSqlServer(Configuration);
             services.AddServiceBricksNotificationSqlServer(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration);
+            //services.AddServiceBricksNotificationSendGrid(Configuration);  // optional
             services.AddServiceBricksSecuritySqlServer(Configuration);
             services.AddCustomWebsite(Configuration);
             services.AddServiceBricksComplete();
@@ -39,6 +41,7 @@ namespace WebApp
             app.StartServiceBricksNotificationSqlServer();
             app.StartServiceBricksSecuritySqlServer();
             app.StartCustomWebsite(webHostEnvironment);
+            //app.StartServiceBricksServiceBusAzure();  // optional
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlServer>>();
             logger.LogInformation("Application Started");
         }

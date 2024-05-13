@@ -3,6 +3,7 @@ using ServiceBricks;
 using ServiceBricks.Logging.Cosmos;
 using ServiceBricks.Security;
 using ServiceBricks.Security.Cosmos;
+using ServiceBricks.ServiceBus.Azure;
 using System.Configuration;
 using WebApp.Extensions;
 
@@ -20,6 +21,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingCosmos(Configuration);
             services.AddServiceBricksSecurityCosmos(Configuration);
             services.AddCustomWebsite(Configuration);
@@ -32,6 +34,7 @@ namespace WebApp
             app.StartServiceBricksLoggingCosmos();
             app.StartServiceBricksSecurityCosmos();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupCosmos>>();
             logger.LogInformation("Application Started");
         }

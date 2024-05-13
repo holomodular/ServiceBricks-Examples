@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.MongoDb;
 using ServiceBricks.Notification.MongoDb;
-using ServiceBricks.Security.Member;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
+using ServiceBricks.Security.Member;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -21,6 +22,7 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            services.AddServiceBricksServiceBusAzure(Configuration);
             services.AddServiceBricksLoggingMongoDb(Configuration);
             services.AddServiceBricksNotificationMongoDb(Configuration);
             //services.AddServiceBricksNotificationSendGrid(Configuration);
@@ -34,8 +36,9 @@ namespace WebApp
             app.StartServiceBricks();
             app.StartServiceBricksLoggingMongoDb();
             app.StartServiceBricksNotificationMongoDb();
-            app.StartServiceBrickSecurityMember();
+            app.StartServiceBricksSecurityMember();
             app.StartCustomWebsite(webHostEnvironment);
+            app.StartServiceBricksServiceBusAzure();
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupMongoDb>>();
             logger.LogInformation("Application Started");
         }

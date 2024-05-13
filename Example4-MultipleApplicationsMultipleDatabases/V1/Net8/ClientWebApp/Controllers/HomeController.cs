@@ -53,6 +53,14 @@ namespace WebApp.Controllers
             // Create a query to get all records
             var queryAll = new ServiceQueryRequestBuilder().Build();
 
+            // Create a log message
+            var respCreateLogMessage = _logMessageApiClient.Create(new LogMessageDto()
+            {
+                Application = "ClientWebApp",
+                Category = "Information",
+                Message = "This is a test message " + Guid.NewGuid().ToString(),
+            });
+
             // Query logging data
             var respQueryLogMessages = _logMessageApiClient.Query(queryAll);
             if (respQueryLogMessages.Success && respQueryLogMessages.Item != null)
@@ -63,11 +71,11 @@ namespace WebApp.Controllers
             if (respQueryApplicationUsers.Success && respQueryApplicationUsers.Item != null)
                 model.Users = respQueryApplicationUsers.Item.List;
 
-            // Create some cache data
+            // Create a cache data
             var newCacheData = new CacheDataDto()
             {
                 Key = "ClientWebApp-" + Guid.NewGuid().ToString(),
-                Value = Guid.NewGuid().ToString()
+                Value = "This is a test value " + Guid.NewGuid().ToString()
             };
             var respCreateCacheData = _cacheDataApiClient.Create(newCacheData);
 

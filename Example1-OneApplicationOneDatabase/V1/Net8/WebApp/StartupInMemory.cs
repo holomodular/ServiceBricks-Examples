@@ -5,6 +5,7 @@ using ServiceBricks.Logging.InMemory;
 using ServiceBricks.Notification.InMemory;
 using ServiceBricks.Notification.SendGrid;
 using ServiceBricks.Security.InMemory;
+using ServiceBricks.ServiceBus.Azure;
 using System.Configuration;
 using WebApp.Extensions;
 
@@ -22,10 +23,11 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
             services.AddServiceBricksLoggingInMemory(Configuration);
             services.AddServiceBricksCacheInMemory(Configuration);
             services.AddServiceBricksNotificationInMemory(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration);
+            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecurityInMemory(Configuration);
             services.AddCustomWebsite(Configuration);
             services.AddServiceBricksComplete();
@@ -39,6 +41,7 @@ namespace WebApp
             app.StartServiceBricksNotificationInMemory();
             app.StartServiceBricksSecurityInMemory();
             app.StartCustomWebsite(webHostEnvironment);
+            //app.StartServiceBricksServiceBusAzure();  // optional
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupInMemory>>();
             logger.LogInformation("Application Started");
         }

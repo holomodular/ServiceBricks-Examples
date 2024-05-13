@@ -14,14 +14,12 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            // Add to module registry
+            // Add to module registry (just for automapper)
             ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
 
-            services.AddHttpContextAccessor();
-
             // This section is dependent on the SeviceBricks:Api:ReturnResponseObject config.
-            // If true, errors will be returned in the response object
-            // If false, errors will be returned with problemdetails
+            // If true, errors will be returned in a response object.
+            // If false, errors will be returned with problemdetails.
             services.AddControllers().ConfigureApiBehaviorOptions(setup =>
             {
                 setup.InvalidModelStateResponseFactory = context =>

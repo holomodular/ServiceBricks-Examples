@@ -8,6 +8,7 @@ using ServiceBricks;
 using System.Text.Json.Serialization;
 using WebApp.Model;
 using ServiceBricks.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebApp.Extensions
 {
@@ -15,14 +16,12 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            // Add to module registry
+            // Add to module registry (just for automapper)
             ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
 
-            services.AddHttpContextAccessor();
-
             // This section is dependent on the SeviceBricks:Api:ReturnResponseObject config.
-            // If true, errors will be returned in the response object
-            // If false, errors will be returned with problemdetails
+            // If true, errors will be returned in a response object.
+            // If false, errors will be returned with problemdetails.
             services.AddControllers().ConfigureApiBehaviorOptions(setup =>
             {
                 setup.InvalidModelStateResponseFactory = context =>
@@ -95,6 +94,14 @@ namespace WebApp.Extensions
             });
             services.AddSwaggerGen(options =>
             {
+                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "JWT token must be provided",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                });
                 options.ResolveConflictingActions(descriptions =>
                 {
                     return descriptions.First();
@@ -103,6 +110,7 @@ namespace WebApp.Extensions
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "API v1", Version = "1.0" });
                 options.SwaggerDoc("v2", new OpenApiInfo { Title = "API v2", Version = "2.0" });
                 options.OperationFilter<SwaggerRemoveVersionOperationFilter>();
+                options.OperationFilter<SwaggerApplySecurityOperationFilter>();
                 options.DocumentFilter<SwaggerReplaceVersionDocumentFilter>();
                 options.DocInclusionPredicate((docName, apiDesc) =>
                 {

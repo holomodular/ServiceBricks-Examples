@@ -53,21 +53,31 @@ namespace WebApp.Controllers
             // Create a query to get all records
             var queryAll = new ServiceQueryRequestBuilder().Build();
 
-            // Query logging data
+            // Create a log message (logging microservice)
+            var respCreateLogMessage = _logMessageApiClient.Create(new LogMessageDto()
+            {
+                Application = "ClientWebApp",
+                Category = "Information",
+                Message = "This is a test message " + Guid.NewGuid().ToString(),
+            });
+
+            model.LogMessages = new List<LogMessageDto>();
+
+            // Query logging data (logging microservice)
             var respQueryLogMessages = _logMessageApiClient.Query(queryAll);
             if (respQueryLogMessages.Success && respQueryLogMessages.Item != null)
-                model.LogMessages = respQueryLogMessages.Item.List;
+                model.LogMessages.AddRange(respQueryLogMessages.Item.List);
 
             // Query application user data
             var respQueryApplicationUsers = _applicationUserApiClient.Query(queryAll);
             if (respQueryApplicationUsers.Success && respQueryApplicationUsers.Item != null)
                 model.Users = respQueryApplicationUsers.Item.List;
 
-            // Create some cache data
+            // Create a cache data
             var newCacheData = new CacheDataDto()
             {
                 Key = "ClientWebApp-" + Guid.NewGuid().ToString(),
-                Value = Guid.NewGuid().ToString()
+                Value = "This is a test value " + Guid.NewGuid().ToString()
             };
             var respCreateCacheData = _cacheDataApiClient.Create(newCacheData);
 

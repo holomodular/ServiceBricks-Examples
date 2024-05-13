@@ -23,7 +23,8 @@ namespace WebApp
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     logging.AddConsole();
                     logging.AddDebug();
-                    logging.AddServiceBricksLogging();
+                    // THIS CLIENT WEBSITE DOES NOT RUN ANY SERVICEBRICKS MICROSERVICES
+                    //logging.AddServiceBricksLogging();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

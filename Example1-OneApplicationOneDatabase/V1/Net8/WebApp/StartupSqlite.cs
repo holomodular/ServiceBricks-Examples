@@ -7,6 +7,7 @@ using ServiceBricks.Security.Sqlite;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -22,10 +23,11 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
             services.AddServiceBricksLoggingSqlite(Configuration);
             services.AddServiceBricksCacheSqlite(Configuration);
             services.AddServiceBricksNotificationSqlite(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration);
+            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecuritySqlite(Configuration);
             services.AddCustomWebsite(Configuration);
             services.AddServiceBricksComplete();
@@ -39,6 +41,7 @@ namespace WebApp
             app.StartServiceBricksNotificationSqlite();
             app.StartServiceBricksSecuritySqlite();
             app.StartCustomWebsite(webHostEnvironment);
+            //app.StartServiceBricksServiceBusAzure();  // optional
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlite>>();
             logger.LogInformation("Application Started");
         }

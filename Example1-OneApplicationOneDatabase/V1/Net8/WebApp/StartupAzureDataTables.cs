@@ -7,6 +7,7 @@ using ServiceBricks.Security.AzureDataTables;
 using System.Configuration;
 using WebApp.Extensions;
 using ServiceBricks.Notification.SendGrid;
+using ServiceBricks.ServiceBus.Azure;
 
 namespace WebApp
 {
@@ -22,10 +23,11 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
+            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
             services.AddServiceBricksLoggingAzureDataTables(Configuration);
             services.AddServiceBricksCacheAzureDataTables(Configuration);
             services.AddServiceBricksNotificationAzureDataTables(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration);
+            //services.AddServiceBricksNotificationSendGrid(Configuration);  // optional
             services.AddServiceBricksSecurityAzureDataTables(Configuration);
             services.AddCustomWebsite(Configuration);
             services.AddServiceBricksComplete();
@@ -39,6 +41,7 @@ namespace WebApp
             app.StartServiceBricksNotificationAzureDataTables();
             app.StartServiceBricksSecurityAzureDataTables();
             app.StartCustomWebsite(webHostEnvironment);
+            //app.StartServiceBricksServiceBusAzure();  // optional
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupAzureDataTables>>();
             logger.LogInformation("Application Started");
         }
