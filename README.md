@@ -15,6 +15,12 @@ All of these examples use the official pre-built microservices we have available
 * [Notification Microservice](https://github.com/holomodular/ServiceBricks-Notification)
 * [Security Microservice](https://github.com/holomodular/ServiceBricks-Security)
 
+# Known Issues
+
+## Notification Microservice
+
+The background task that processing notifymessages to be sent is throwing errors for Postgres, Sqlite and SqlServer providers.
+
 # Deployment Examples
 
 ## Example 1 - One Application One Database
