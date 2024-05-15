@@ -21,6 +21,13 @@ All of these examples use the official pre-built microservices we have available
 
 The background task that processing notifymessages to be sent is throwing errors for Postgres, Sqlite and SqlServer providers.
 
+# Starting Multiple Projects
+Each of the examples below contain multiple web applications.
+After opening the solution in Visual Studio, right click the solution and select the options for **Configure Startup Projects**. 
+Select the radio option for Multiple Startup Projects and change the drop down for each project to be Start.
+When you run the application, multiple browser windows will be displayed for each web application.
+
+
 # Deployment Examples
 
 ## Example 1 - One Application One Database
