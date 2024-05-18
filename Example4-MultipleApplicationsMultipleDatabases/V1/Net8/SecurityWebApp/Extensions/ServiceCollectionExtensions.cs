@@ -19,52 +19,7 @@ namespace WebApp.Extensions
             // Add to module registry (just for automapper)
             ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
 
-            // This section is dependent on the SeviceBricks:Api:ReturnResponseObject config.
-            // If true, errors will be returned in a response object.
-            // If false, errors will be returned with problemdetails.
-            services.AddControllers().ConfigureApiBehaviorOptions(setup =>
-            {
-                setup.InvalidModelStateResponseFactory = context =>
-                {
-                    if (context.HttpContext != null &&
-                    context.HttpContext.Request != null &&
-                    context.HttpContext.Request.Path.HasValue &&
-                    context.HttpContext.Request.Path.Value.StartsWith(@"/api/", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        var apiOptions = context.HttpContext.RequestServices.GetRequiredService<IOptions<ApiOptions>>().Value;
-
-                        if (apiOptions.ReturnResponseObject)
-                        {
-                            Response response = new Response();
-                            foreach (var key in context.ModelState.Keys)
-                            {
-                                foreach (var err in context.ModelState[key].Errors)
-                                {
-                                    if (!string.IsNullOrEmpty(key))
-                                        response.AddMessage(ResponseMessage.CreateError(err.ErrorMessage, key));
-                                    else
-                                        response.AddMessage(ResponseMessage.CreateError(err.ErrorMessage));
-                                }
-                            }
-
-                            var objectResult = new ObjectResult(response) { StatusCode = StatusCodes.Status400BadRequest };
-                            return objectResult;
-                        }
-                        else
-                        {
-                            var vpd = new ValidationProblemDetails(context.ModelState);
-                            var objectResult = new ObjectResult(vpd) { StatusCode = StatusCodes.Status400BadRequest };
-                            return objectResult;
-                        }
-                    }
-                    else
-                    {
-                        var vpd = new ValidationProblemDetails(context.ModelState);
-                        var objectResult = new ObjectResult(vpd) { StatusCode = StatusCodes.Status400BadRequest };
-                        return objectResult;
-                    }
-                };
-            });
+            services.AddControllers();
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddOptions();

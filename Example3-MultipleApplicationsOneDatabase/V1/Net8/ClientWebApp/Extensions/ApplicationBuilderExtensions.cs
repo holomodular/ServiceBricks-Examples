@@ -12,7 +12,7 @@ namespace WebApp.Extensions
             // THIS CLIENT WEBSITE DOES NOT RUN ANY SERVICEBRICKS MICROSERVICES
 
             // Exception handling middleware
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
 
             return app;
         }
