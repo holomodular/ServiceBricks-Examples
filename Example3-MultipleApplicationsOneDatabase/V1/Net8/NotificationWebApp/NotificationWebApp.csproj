@@ -16,22 +16,22 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Logging.AzureDataTables" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.InMemory" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.Cosmos" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.MongoDb" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.Postgres" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.Sqlite" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging.SqlServer" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.AzureDataTables" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.InMemory" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.Cosmos" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.MongoDb" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.Postgres" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.Sqlite" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.SqlServer" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Notification.SendGrid" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Security.Member" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.ServiceBus.Azure" Version="1.0.7" />
+		<PackageReference Include="ServiceBricks.Logging.AzureDataTables" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.InMemory" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.Cosmos" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.MongoDb" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.Postgres" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.Sqlite" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.SqlServer" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.AzureDataTables" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.InMemory" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.Cosmos" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.MongoDb" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.Postgres" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.Sqlite" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.SqlServer" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification.SendGrid" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Security.Member" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.ServiceBus.Azure" Version="1.0.10" />
 	</ItemGroup>
 </Project>

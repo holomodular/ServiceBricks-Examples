@@ -16,9 +16,9 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Cache" Version="1.0.8" />
-		<PackageReference Include="ServiceBricks.Notification" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Logging" Version="1.0.7" />
-		<PackageReference Include="ServiceBricks.Security" Version="1.0.7" />
+		<PackageReference Include="ServiceBricks.Cache" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Notification" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Security" Version="1.0.10" />
 	</ItemGroup>
 </Project>
