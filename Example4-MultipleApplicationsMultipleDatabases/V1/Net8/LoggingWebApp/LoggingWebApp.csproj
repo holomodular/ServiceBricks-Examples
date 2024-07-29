@@ -8,22 +8,22 @@
 
   <ItemGroup>
 	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 	<ItemGroup>		
-		<PackageReference Include="ServiceBricks.Logging.AzureDataTables" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.InMemory" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.Cosmos" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.MongoDb" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.Postgres" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.Sqlite" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.Logging.SqlServer" Version="1.0.10" />		
-		<PackageReference Include="ServiceBricks.Security.Member" Version="1.0.10" />
-		<PackageReference Include="ServiceBricks.ServiceBus.Azure" Version="1.0.10" />
+		<PackageReference Include="ServiceBricks.Logging.AzureDataTables" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.InMemory" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.Cosmos" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.MongoDb" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.Postgres" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.Sqlite" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Logging.SqlServer" Version="1.0.11" />		
+		<PackageReference Include="ServiceBricks.Security.Member" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.ServiceBus.Azure" Version="1.0.11" />
 	</ItemGroup>
 </Project>
