@@ -5,8 +5,13 @@
     ViewBag.Keywords = "View Service Data";
 }
 <h1>View Microservices Data</h1>
+<a class="btn btn-primary" href="/">Go Back</a>
+
+
 <h2>Logging Microservice</h2>
-<table class="table table-striped">
+<a class="btn btn-primary" href="/ViewServiceData?create=logging">Create Logging Record</a>
+<h3>LogMessage Records</h3>
+<table class="table table-striped table-primary">
     <thead>
         <tr>
             <td>StorageKey</td>
@@ -33,7 +38,9 @@
 </table>
 
 <h2>Cache Microservice</h2>
-<table class="table table-striped">
+<a class="btn btn-primary" href="/ViewServiceData?create=cache">Create Cache Record</a>
+<h3>CacheData Records</h3>
+<table class="table table-striped table-primary">
     <thead>
         <tr>
             <td>StorageKey</td>
@@ -46,8 +53,8 @@
         {
             <tr>
                 <td>@cachedata.StorageKey</td>
-                <td>@cachedata.Key</td>
-                <td>@cachedata.Value</td>
+                <td>@cachedata.CacheKey</td>
+                <td>@cachedata.CacheValue</td>
             </tr>
         }
         <tr>
@@ -56,7 +63,9 @@
 </table>
 
 <h2>Notification Microservice</h2>
-<table class="table table-striped">
+<a class="btn btn-primary" href="/ViewServiceData?create=notification">Create Notification Record</a>
+<h3>NotifyMessage Records</h3>
+<table class="table table-striped table-primary">
     <thead>
         <tr>
             <td>StorageKey</td>
@@ -73,7 +82,7 @@
             <tr>
                 <td>@notify.StorageKey</td>
                 <td>@notify.CreateDate</td>
-                <td>@notify.SenderTypeKey</td>
+                <td>@notify.SenderType</td>
                 <td>@notify.ToAddress</td>
                 <td>@notify.Body</td>
                 <td>@notify.IsComplete</td>
@@ -86,7 +95,9 @@
 
 
 <h2>Security Microservice</h2>
-<table class="table table-striped">
+<a class="btn btn-primary" href="/ViewServiceData?create=security">Create Audit Record</a>
+<h3>User Records</h3>
+<table class="table table-striped table-primary">
     <thead>
         <tr>
             <td>StorageKey</td>
@@ -101,6 +112,36 @@
                 <td>@user.StorageKey</td>
                 <td>@user.CreateDate</td>
                 <td>@user.Email</td>
+            </tr>
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>
+<h3>UserAudit Records</h3>
+<table class="table table-striped table-primary">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Create Date</td>
+            <td>UserStorageKey</td>
+            <td>IP Address</td>
+            <td>Request Headers</td>
+            <td>Audit</td>
+            <td>Data</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.UserAudits)
+        {
+            <tr>
+                <td>@user.StorageKey</td>
+                <td>@user.CreateDate</td>
+                <td>@user.UserStorageKey</td>
+                <td>@user.IPAddress</td>
+                <td>@user.RequestHeaders</td>
+                <td>@user.AuditType</td>
+                <td>@user.Data</td>
             </tr>
         }
         <tr>

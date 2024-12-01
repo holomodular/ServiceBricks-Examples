@@ -1,14 +1,7 @@
-﻿using Amazon.Runtime.Internal.Auth;
-using Asp.Versioning;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using ServiceBricks;
-using System.Text.Json.Serialization;
-using WebApp.Model;
-using ServiceBricks.Security;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using WebApp.Model;
 
 namespace WebApp.Extensions
 {
@@ -16,58 +9,9 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            // Add to module registry (just for automapper)
-            ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
-
-            // This section is dependent on the SeviceBricks:Api:ReturnResponseObject config.
-            // If true, errors will be returned in a response object.
-            // If false, errors will be returned with problemdetails.
-            services.AddControllers().ConfigureApiBehaviorOptions(setup =>
-            {
-                setup.InvalidModelStateResponseFactory = context =>
-                {
-                    if (context.HttpContext != null &&
-                    context.HttpContext.Request != null &&
-                    context.HttpContext.Request.Path.HasValue &&
-                    context.HttpContext.Request.Path.Value.StartsWith(@"/api/", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        var apiOptions = context.HttpContext.RequestServices.GetRequiredService<IOptions<ApiOptions>>().Value;
-
-                        if (apiOptions.ReturnResponseObject)
-                        {
-                            Response response = new Response();
-                            foreach (var key in context.ModelState.Keys)
-                            {
-                                foreach (var err in context.ModelState[key].Errors)
-                                {
-                                    if (!string.IsNullOrEmpty(key))
-                                        response.AddMessage(ResponseMessage.CreateError(err.ErrorMessage, key));
-                                    else
-                                        response.AddMessage(ResponseMessage.CreateError(err.ErrorMessage));
-                                }
-                            }
-
-                            var objectResult = new ObjectResult(response) { StatusCode = StatusCodes.Status400BadRequest };
-                            return objectResult;
-                        }
-                        else
-                        {
-                            var vpd = new ValidationProblemDetails(context.ModelState);
-                            var objectResult = new ObjectResult(vpd) { StatusCode = StatusCodes.Status400BadRequest };
-                            return objectResult;
-                        }
-                    }
-                    else
-                    {
-                        var vpd = new ValidationProblemDetails(context.ModelState);
-                        var objectResult = new ObjectResult(vpd) { StatusCode = StatusCodes.Status400BadRequest };
-                        return objectResult;
-                    }
-                };
-            });
+            services.AddControllers();
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddOptions();
             services.AddCors();
             services.AddMvc();
 

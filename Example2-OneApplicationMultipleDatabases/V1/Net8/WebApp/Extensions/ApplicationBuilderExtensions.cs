@@ -8,14 +8,9 @@ namespace WebApp.Extensions
     {
         private static IApplicationBuilder RegisterMiddleware(this IApplicationBuilder app)
         {
-            // Microsoft.Extensions.Logging middleware
-            app.UseMiddleware<CustomLoggerMiddleware>();
-
-            // Web request logging middleware
+            app.UseMiddleware<LogMessageMiddleware>();
             app.UseMiddleware<WebRequestMessageMiddleware>();
-
-            // Exception handling middleware
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<PropogateExceptionResponseMiddleware>();
 
             return app;
         }
@@ -73,12 +68,6 @@ namespace WebApp.Extensions
 
                 // Execute the process
                 var response = businessRuleService.ExecuteProcess(registerAdminProcess);
-                if (response.Error)
-                {
-                    var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
-                    var logger = loggerFactory.CreateLogger("ApplicationBuilderExtensions");
-                    logger.LogError($"Error creating unit test user {response}");
-                }
             }
 
             return builder;

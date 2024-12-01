@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
-using ServiceBricks.Logging.AzureDataTables;
 using ServiceBricks.Cache.AzureDataTables;
+using ServiceBricks.Logging.AzureDataTables;
 using ServiceBricks.Notification.AzureDataTables;
 using ServiceBricks.Security.AzureDataTables;
-using System.Configuration;
 using WebApp.Extensions;
-using ServiceBricks.Notification.SendGrid;
-using ServiceBricks.ServiceBus.Azure;
+using WebApp.Model;
 
 namespace WebApp
 {
@@ -23,25 +20,24 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
-            //services.AddServiceBricksServiceBusAzure(Configuration);  // optional
+            //services.AddServiceBricksServiceBusAzureTopic(Configuration);  // optional
             services.AddServiceBricksLoggingAzureDataTables(Configuration);
             services.AddServiceBricksCacheAzureDataTables(Configuration);
             services.AddServiceBricksNotificationAzureDataTables(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
+            //services.AddServiceBricksNotificationSendGrid(Configuration);  // optional
             services.AddServiceBricksSecurityAzureDataTables(Configuration);
+            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksComplete(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingAzureDataTables();
-            app.StartServiceBricksCacheAzureDataTables();
-            app.StartServiceBricksNotificationAzureDataTables();
-            app.StartServiceBricksSecurityAzureDataTables();
+
             app.StartCustomWebsite(webHostEnvironment);
-            //app.StartServiceBricksServiceBusAzure();  // optional
+
+            // Log a message the website is started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupAzureDataTables>>();
             logger.LogInformation("Application Started");
         }

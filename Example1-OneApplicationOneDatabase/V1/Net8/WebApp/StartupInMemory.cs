@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Cache.InMemory;
 using ServiceBricks.Logging.InMemory;
 using ServiceBricks.Notification.InMemory;
-using ServiceBricks.Notification.SendGrid;
 using ServiceBricks.Security.InMemory;
-using ServiceBricks.ServiceBus.Azure;
-using System.Configuration;
 using WebApp.Extensions;
+using WebApp.Model;
 
 namespace WebApp
 {
@@ -29,19 +26,18 @@ namespace WebApp
             services.AddServiceBricksNotificationInMemory(Configuration);
             //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecurityInMemory(Configuration);
+            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksComplete(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingInMemory();
-            app.StartServiceBricksCacheInMemory();
-            app.StartServiceBricksNotificationInMemory();
-            app.StartServiceBricksSecurityInMemory();
+
             app.StartCustomWebsite(webHostEnvironment);
-            //app.StartServiceBricksServiceBusAzure();  // optional
+
+            // Log a message the website is started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupInMemory>>();
             logger.LogInformation("Application Started");
         }

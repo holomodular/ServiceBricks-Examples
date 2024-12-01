@@ -8,17 +8,19 @@
 
   <ItemGroup>
 	  <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.10" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+	
 	<ItemGroup>
-		<PackageReference Include="ServiceBricks.Cache" Version="1.0.11" />
-		<PackageReference Include="ServiceBricks.Notification" Version="1.0.11" />
-		<PackageReference Include="ServiceBricks.Logging" Version="1.0.11" />
-		<PackageReference Include="ServiceBricks.Security" Version="1.0.11" />
+		<PackageReference Include="ServiceBricks.Cache.Microservice" Version="1.1.3" />
+		<PackageReference Include="ServiceBricks.Notification.Microservice" Version="1.1.3" />
+		<PackageReference Include="ServiceBricks.Logging.Microservice" Version="1.1.3" />
+		<PackageReference Include="ServiceBricks.Security.Microservice" Version="1.1.3" />
 	</ItemGroup>
+	
 </Project>

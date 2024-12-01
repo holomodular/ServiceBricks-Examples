@@ -1,13 +1,10 @@
-using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
-using ServiceBricks.Logging.Sqlite;
 using ServiceBricks.Cache.Sqlite;
+using ServiceBricks.Logging.Sqlite;
 using ServiceBricks.Notification.Sqlite;
 using ServiceBricks.Security.Sqlite;
-using System.Configuration;
 using WebApp.Extensions;
-using ServiceBricks.Notification.SendGrid;
-using ServiceBricks.ServiceBus.Azure;
+using WebApp.Model;
 
 namespace WebApp
 {
@@ -29,19 +26,18 @@ namespace WebApp
             services.AddServiceBricksNotificationSqlite(Configuration);
             //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecuritySqlite(Configuration);
+            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksComplete(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingSqlite();
-            app.StartServiceBricksCacheSqlite();
-            app.StartServiceBricksNotificationSqlite();
-            app.StartServiceBricksSecuritySqlite();
+
             app.StartCustomWebsite(webHostEnvironment);
-            //app.StartServiceBricksServiceBusAzure();  // optional
+
+            // Log a message the website is started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlite>>();
             logger.LogInformation("Application Started");
         }

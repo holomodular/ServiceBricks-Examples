@@ -1,25 +1,52 @@
 ﻿@model WebApp.ViewModel.Home.HomeViewModel
 @{
-    ViewBag.Title = "Welcome";
-    ViewBag.Description = "Welcome";
-    ViewBag.Keywords = "Welcome";
+    ViewBag.Title = "Welcome to ServiceBricks";
+    ViewBag.Description = "Welcome to ServiceBricks";
+    ViewBag.Keywords = "Welcome to ServiceBricks";
 }
-<h1>Welcome to the Client Web Application</h1>
+<h1>This is the Client Application</h1>
 <p>
-    This web application is a client application that consumes the ServiceBricks Web APIs of all microservices.
+    This client application communicates to the server application via HttpClient REST API calls.
+    View the appsetting.json to change configurations.
 </p>
-<h2>Access Microservices Data</h2>
+<h2>View Microservices Data</h2>
 <p>
-    Click the <a class="btn btn-primary" href="/ViewServiceData">View Data</a> button to view microservices data.
-</p>
-<h2>Swagger</h2>
-<p>
-    There shouldn't be any microservice methods listed here. That is a bug...
+    Click the button below to view the ServiceBricks microservices data.
 </p>
 <p>
-    <a href="/swagger" target="_blank">View Swagger Page</a>
+    <a class="btn btn-primary" href="/ViewServiceData">View Service Data</a>
 </p>
+<h2>IApiClient</h2>
+<p>
+    You access the various microservices using an IApiClient interface using dependency injection.
+    View the HomeController to see how easy it is to use.
+</p>
+<ul>
+    <li>
+        <b>Cache Microservice</b><br />
+        ServiceBricks.Cache.ICacheDataApiClient
+    </li>
+    <li>
+        <b>Logging Microservice</b><br />
+        ServiceBricks.Logging.ILogMessageApiClient<br />
+        ServiceBricks.Logging.IWebRequestMessageApiClient
+    </li>
+    <li>
+        <b>Notification Microservice</b><br />
+        ServiceBricks.Notification.INotifyMessageApiClient
+    </li>
+    <li>
+        <b>Security Microservice</b><br />
+        ServiceBricks.Security.IUserApiClient<br />
+        ServiceBricks.Security.IUserAuditApiClient<br />
+        ServiceBricks.Security.IUserClaimApiClient<br />
+        ServiceBricks.Security.IUserRoleApiClient<br />
+        ServiceBricks.Security.IUserTokenApiClient<br />
+        ServiceBricks.Security.IRoleApiClient<br />
+        ServiceBricks.Security.IRoleClaimApiClient<br />
+    </li>
+</ul>
 <h2>About ServiceBricks</h2>
 <p>
-    Please visit our website at: <a href="http://ServiceBricks.com" target="_blank">http://ServiceBricks.com</a> to learn more.
+    Please visit our website at: <a href="https://ServiceBricks.com" target="_blank">https://ServiceBricks.com</a> to learn more.
 </p>

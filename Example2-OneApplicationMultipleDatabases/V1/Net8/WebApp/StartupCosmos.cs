@@ -1,14 +1,10 @@
-using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
-using ServiceBricks.Logging.Cosmos;
 using ServiceBricks.Cache.Cosmos;
+using ServiceBricks.Logging.Cosmos;
 using ServiceBricks.Notification.Cosmos;
-using ServiceBricks.Security;
 using ServiceBricks.Security.Cosmos;
-using System.Configuration;
 using WebApp.Extensions;
-using ServiceBricks.Notification.SendGrid;
-using ServiceBricks.ServiceBus.Azure;
+using WebApp.Model;
 
 namespace WebApp
 {
@@ -30,19 +26,18 @@ namespace WebApp
             services.AddServiceBricksNotificationCosmos(Configuration);
             //services.AddServiceBricksNotificationSendGrid(Configuration);  // optional
             services.AddServiceBricksSecurityCosmos(Configuration);
+            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksComplete(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingCosmos();
-            app.StartServiceBricksCacheCosmos();
-            app.StartServiceBricksNotificationCosmos();
-            app.StartServiceBricksSecurityCosmos();
+
             app.StartCustomWebsite(webHostEnvironment);
-            //app.StartServiceBricksServiceBusAzure();  // optional
+
+            // Log a message the website is started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupCosmos>>();
             logger.LogInformation("Application Started");
         }

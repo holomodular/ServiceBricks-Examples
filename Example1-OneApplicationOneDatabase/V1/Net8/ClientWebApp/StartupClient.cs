@@ -1,15 +1,7 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Net.Http.Headers;
-using ServiceBricks;
 using ServiceBricks.Cache;
 using ServiceBricks.Logging;
 using ServiceBricks.Notification;
 using ServiceBricks.Security;
-using System.Configuration;
 using WebApp.Extensions;
 
 namespace WebApp
@@ -25,19 +17,22 @@ namespace WebApp
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddServiceBricks(Configuration);
+            // Add ServiceBricks clients for each microservice
             services.AddServiceBricksLoggingClient(Configuration);
             services.AddServiceBricksCacheClient(Configuration);
             services.AddServiceBricksNotificationClient(Configuration);
             services.AddServiceBricksSecurityClient(Configuration);
+
+            // Standard website
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
-            app.StartServiceBricks();
+            // Standard website
             app.StartCustomWebsite(webHostEnvironment);
+
+            // Log a message website started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupClient>>();
             logger.LogInformation("Application Started");
         }

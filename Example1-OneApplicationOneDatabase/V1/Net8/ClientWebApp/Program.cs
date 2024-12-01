@@ -1,6 +1,3 @@
-using ServiceBricks;
-using ServiceBricks.Logging;
-
 namespace WebApp
 {
     public class Program
@@ -16,15 +13,14 @@ namespace WebApp
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddAppSettingsConfig();
+                    config.AddJsonFile("appsettings.json");
+                    config.AddEnvironmentVariables();
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                     logging.AddConsole();
                     logging.AddDebug();
-                    // THIS CLIENT WEBSITE DOES NOT RUN ANY SERVICEBRICKS MICROSERVICES
-                    //logging.AddServiceBricksLogging();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

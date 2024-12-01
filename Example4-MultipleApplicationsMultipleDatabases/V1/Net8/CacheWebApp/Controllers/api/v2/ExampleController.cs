@@ -1,7 +1,7 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Asp.Versioning;
 
 namespace WebApp.Controllers.api.v2
 {

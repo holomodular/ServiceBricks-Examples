@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
 using ServiceBricks;
 using ServiceBricks.Logging.SqlServer;
 using ServiceBricks.Security.SqlServer;
 using ServiceBricks.ServiceBus.Azure;
-using System.Configuration;
 using WebApp.Extensions;
+using WebApp.Model;
 
 namespace WebApp
 {
@@ -20,20 +19,21 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
-            services.AddServiceBricksServiceBusAzure(Configuration);
+            services.AddServiceBricksServiceBusAzureTopic(Configuration);
             services.AddServiceBricksLoggingSqlServer(Configuration);
             services.AddServiceBricksSecuritySqlServer(Configuration);
+            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksComplete(Configuration);
             services.AddCustomWebsite(Configuration);
-            services.AddServiceBricksComplete();
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment webHostEnvironment)
         {
             app.StartServiceBricks();
-            app.StartServiceBricksLoggingSqlServer();
-            app.StartServiceBricksSecuritySqlServer();
+
             app.StartCustomWebsite(webHostEnvironment);
-            app.StartServiceBricksServiceBusAzure();
+
+            // Log a message the website is started
             var logger = app.ApplicationServices.GetRequiredService<ILogger<StartupSqlServer>>();
             logger.LogInformation("Application Started");
         }

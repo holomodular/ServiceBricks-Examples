@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceBricks;
-
-using ServiceBricks.Security;
 using WebApp.ViewModel.Home;
 
 namespace WebApp.Controllers
@@ -14,6 +10,13 @@ namespace WebApp.Controllers
     [Route("Home")]
     public class HomeController : Controller
     {
+        private readonly IServiceBus _serviceBus;
+
+        public HomeController(IServiceBus serviceBus)
+        {
+            _serviceBus = serviceBus;
+        }
+
         [HttpGet]
         [Route("")]
         [Route("Index")]
@@ -21,6 +24,23 @@ namespace WebApp.Controllers
         {
             HomeViewModel model = new HomeViewModel();
             return View(model);
+        }
+
+        [HttpGet]
+        [Route("SendServiceBusMessage")]
+        public IActionResult SendServiceBusMessage()
+        {
+            // Send ServiceBus Message
+            CreateApplicationEmailBroadcast broadcast = new CreateApplicationEmailBroadcast(new ApplicationEmailDto()
+            {
+                Body = "Body From Security Service",
+                Subject = "Subject From Security Service",
+                ToAddress = "test@servicebricks.com",
+            });
+            _serviceBus.Send(broadcast);
+
+            HomeViewModel model = new HomeViewModel();
+            return View("Index", model);
         }
 
         [HttpGet]

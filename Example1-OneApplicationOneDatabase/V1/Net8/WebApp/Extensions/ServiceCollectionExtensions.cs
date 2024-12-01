@@ -1,14 +1,7 @@
-﻿using Amazon.Runtime.Internal.Auth;
-using Asp.Versioning;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
-using ServiceBricks;
-using System.Text.Json.Serialization;
-using WebApp.Model;
-using ServiceBricks.Security;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using WebApp.Model;
 
 namespace WebApp.Extensions
 {
@@ -16,9 +9,6 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            // Add to module registry (just for automapper)
-            ModuleRegistry.Instance.RegisterItem(typeof(WebAppModule), new WebAppModule());
-
             services.AddControllers();
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
