@@ -16,7 +16,6 @@ All of these examples use the official pre-built microservices we have available
 * [Security Microservice](https://github.com/holomodular/ServiceBricks-Security)
 
 
-
 # Starting Multiple Projects
 Each of the examples below contain multiple web applications.
 After opening the solution in Visual Studio, right click the solution and select the options for **Configure Startup Projects**. 
@@ -99,6 +98,15 @@ You can query one place to view logging messages for the entire infrastructure.
 Alternatively, you can also setup:
 
 ![Example 4 Diagram](https://github.com/holomodular/ServiceBricks-Examples/blob/main/Example4-MultipleApplicationsMultipleDatabases/Example4CentralizedLogging.png) 
+
+
+## Example 5 - Simple Security Web Application
+
+### Purpose
+
+This is a copy of Example 1,  with the addition of controller methods, models and views to enable security for your website. 
+It contains example pages for registering, logging in, confirming your password, resetting your password and other standard pages to help secure your web application.
+
 
 
 # Feedback
