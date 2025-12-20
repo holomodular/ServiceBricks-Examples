@@ -20,12 +20,13 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
-            services.AddServiceBricksServiceBusAzureTopic(Configuration);
+            services.AddServiceBricksServiceBusAzureQueue(Configuration); // Basic
+            //services.AddServiceBricksServiceBusAzureTopic(Configuration); // Standard/Premium
             services.AddServiceBricksLoggingSqlite(Configuration);
             services.AddServiceBricksCacheSqlite(Configuration);
             services.AddServiceBricksSecurityMember(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

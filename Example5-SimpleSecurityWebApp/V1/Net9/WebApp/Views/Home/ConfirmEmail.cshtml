@@ -1,0 +1,25 @@
+﻿@model ServiceBricks.IResponse
+@{
+    ViewBag.Title = "Confirm Email";
+    ViewBag.Description = "Confirm Email";
+    ViewBag.Keywords = "Confirm Email";
+}
+<div class="container">            
+        @if (Model.Success)
+            {
+        <h1>Thank you for Confirming Your Account</h1>
+            <p>
+                <a href="/login" class="btn btn-primary" type="button">Login</a>
+            </p>
+            }
+            else
+            {
+                <h1>Error Confirming</h1>
+    <p class="text-danger">
+        There was an error confirming your account or the link has expired. Please click the button below to request a new confirmation email.
+            <a href="/registerresendemail" class="btn btn-primary" type="button">Resend Confirmation Email</a>
+    </p>
+            
+            }
+                      
+</div>

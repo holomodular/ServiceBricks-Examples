@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using WebApp.Model;
 
 namespace WebApp.Extensions
@@ -9,7 +8,7 @@ namespace WebApp.Extensions
     {
         public static IServiceCollection AddCustomWebsite(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddRazorPages();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddCors();
@@ -38,13 +37,19 @@ namespace WebApp.Extensions
             });
             services.AddSwaggerGen(options =>
             {
-                options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
                 {
-                    Name = "Authorization",
                     Description = "JWT token must be provided",
-                    In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
-                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                options.AddSecurityRequirement(doc =>
+                {
+                    return new OpenApiSecurityRequirement()
+                    {
+                        {  new OpenApiSecuritySchemeReference("bearer"), new List<string>() }
+                    };
                 });
                 options.ResolveConflictingActions(descriptions =>
                 {

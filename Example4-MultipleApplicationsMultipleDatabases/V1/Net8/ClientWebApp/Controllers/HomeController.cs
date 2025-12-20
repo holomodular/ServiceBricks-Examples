@@ -4,6 +4,7 @@ using ServiceBricks.Cache;
 using ServiceBricks.Logging;
 using ServiceBricks.Notification;
 using ServiceBricks.Security;
+using ServiceBricks.Work;
 using ServiceQuery;
 using WebApp.ViewModel.Home;
 
@@ -19,19 +20,23 @@ namespace WebApp.Controllers
         private readonly INotifyMessageApiClient _notifyMessageApiClient;
         private readonly IUserApiClient _userApiClient;
         private readonly IUserAuditApiClient _userAuditApiClient;
+        private readonly IProcessApiClient _processApiClient;
+
 
         public HomeController(
             ICacheDataApiClient cacheDataApiClient,
             ILogMessageApiClient logMessageApiClient,
             INotifyMessageApiClient notifyMessageApiClient,
             IUserApiClient userApiClient,
-            IUserAuditApiClient userAuditApiClient)
+            IUserAuditApiClient userAuditApiClient,
+            IProcessApiClient processApiClient)
         {
             _cacheDataApiClient = cacheDataApiClient;
             _logMessageApiClient = logMessageApiClient;
             _notifyMessageApiClient = notifyMessageApiClient;
             _userApiClient = userApiClient;
             _userAuditApiClient = userAuditApiClient;
+            _processApiClient = processApiClient;
         }
 
         [HttpGet]
@@ -53,7 +58,7 @@ namespace WebApp.Controllers
             if (!string.IsNullOrEmpty(create))
                 CreateAnExampleRecord(create);
 
-            // Create default query
+            // Create default query, 1st page of 1000 records (no count)
             var defaultQuery = new ServiceQueryRequestBuilder().Build();
 
             // Query logging microservice
@@ -78,6 +83,10 @@ namespace WebApp.Controllers
             _logMessageApiClient.BaseUrl = _notifyMessageApiClient.BaseUrl;
             var respNotificationLogMessages = _logMessageApiClient.Query(defaultQuery);
             model.NotificationLogMessages = respNotificationLogMessages.Item.List;
+
+            // Query work microservice process messages            
+            var respProcesses = _processApiClient.Query(defaultQuery);
+            model.Processes = respProcesses.Item.List;
 
             return View("ViewServiceData", model);
         }
@@ -141,6 +150,20 @@ namespace WebApp.Controllers
                         UserStorageKey = respUsers.Item.List[0].StorageKey
                     };
                     var respCreateUserAudit = _userAuditApiClient.Create(newUserAudit);
+
+                    break;
+
+                case "work":
+                    
+
+                    // Create a process
+                    var newProcess = new ProcessDto()
+                    {
+                        ProcessData = "test data",
+                        ProcessType = "test type",
+                        ProcessQueue = "test queue"
+                    };
+                    var respCreateProcess = _processApiClient.Create(newProcess);
 
                     break;
             }

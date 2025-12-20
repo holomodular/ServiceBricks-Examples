@@ -3,6 +3,7 @@ using ServiceBricks.Cache.Sqlite;
 using ServiceBricks.Logging.Sqlite;
 using ServiceBricks.Notification.Sqlite;
 using ServiceBricks.Security.Sqlite;
+using ServiceBricks.Work.Sqlite;
 using WebApp.Extensions;
 using WebApp.Model;
 
@@ -24,10 +25,10 @@ namespace WebApp
             services.AddServiceBricksLoggingSqlite(Configuration);
             services.AddServiceBricksCacheSqlite(Configuration);
             services.AddServiceBricksNotificationSqlite(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecuritySqlite(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksWorkSqlite(Configuration);
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

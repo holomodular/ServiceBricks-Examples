@@ -3,6 +3,7 @@ using ServiceBricks.Cache.Postgres;
 using ServiceBricks.Logging.Postgres;
 using ServiceBricks.Notification.Postgres;
 using ServiceBricks.Security.Postgres;
+using ServiceBricks.Work.Postgres;
 using WebApp.Extensions;
 using WebApp.Model;
 
@@ -24,10 +25,10 @@ namespace WebApp
             services.AddServiceBricksLoggingPostgres(Configuration);
             services.AddServiceBricksCachePostgres(Configuration);
             services.AddServiceBricksNotificationPostgres(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecurityPostgres(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksWorkPostgres(Configuration);
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

@@ -1,4 +1,5 @@
 using ServiceBricks;
+using ServiceBricks.Cache;
 using ServiceBricks.Logging.AzureDataTables;
 using ServiceBricks.Notification.AzureDataTables;
 using ServiceBricks.Security.Member;
@@ -20,12 +21,14 @@ namespace WebApp
         public virtual void ConfigureServices(IServiceCollection services)
         {
             services.AddServiceBricks(Configuration);
-            services.AddServiceBricksServiceBusAzureTopic(Configuration);
+            services.AddServiceBricksServiceBusAzureQueue(Configuration); // Basic
+            //services.AddServiceBricksServiceBusAzureTopic(Configuration); // Standard/Premium
             services.AddServiceBricksLoggingAzureDataTables(Configuration);
+            services.AddServiceBricksCacheClientForService(Configuration);
             services.AddServiceBricksNotificationAzureDataTables(Configuration);
             services.AddServiceBricksSecurityMember(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

@@ -17,6 +17,16 @@ namespace WebApp.Extensions
 
         public static IApplicationBuilder StartCustomWebsite(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(x =>
+                {
+                    x.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
+                    x.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
+                });
+            }
+
             if (!env.IsDevelopment())
                 app.UseHsts();
 
@@ -36,16 +46,6 @@ namespace WebApp.Extensions
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(x =>
-                {
-                    x.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-                    x.SwaggerEndpoint("/swagger/v2/swagger.json", "API v2");
-                });
-            }
 
             // Create a default test user account
             app.CreateTestUserAccount();

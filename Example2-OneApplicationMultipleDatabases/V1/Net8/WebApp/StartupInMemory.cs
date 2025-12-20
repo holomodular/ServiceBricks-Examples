@@ -3,6 +3,7 @@ using ServiceBricks.Cache.InMemory;
 using ServiceBricks.Logging.InMemory;
 using ServiceBricks.Notification.InMemory;
 using ServiceBricks.Security.InMemory;
+using ServiceBricks.Work.InMemory;
 using WebApp.Extensions;
 using WebApp.Model;
 
@@ -24,10 +25,10 @@ namespace WebApp
             services.AddServiceBricksLoggingInMemory(Configuration);
             services.AddServiceBricksCacheInMemory(Configuration);
             services.AddServiceBricksNotificationInMemory(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecurityInMemory(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksWorkInMemory(Configuration);
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

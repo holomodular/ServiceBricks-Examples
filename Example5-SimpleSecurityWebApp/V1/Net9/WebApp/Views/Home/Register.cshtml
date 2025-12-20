@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Register";
+    ViewBag.Description = "Register Your Free ServiceBricks Account";
+    ViewBag.Keywords = "servicebricks register, free account";
+}
+<div class="container">
+    <form id="registrationForm" action="/register" method="post">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input type="email" class="form-control reg-email-field" name="email" id="email">
+                </div>
+                <div class="invalid-feedback d-block" id="emailError"></div>
+            </div>
+            <div class="col-12">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" class="form-control" name="password" id="password">
+                    <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <div class="invalid-feedback d-block" id="passwordError"></div>
+            </div>
+            <div class="col-12">
+                <label for="confirmpassword" class="form-label">Confirm Password</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" class="form-control" name="confirmpassword"
+                            id="confirmpassword">
+                    <span class="input-group-text " id="toggleConfirmPassword" style="cursor: pointer;">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+                <div class="invalid-feedback d-block" id="confirmPasswordError"></div>
+            </div>
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="terms_check">
+                    <label class="form-check-label text-center" for="terms_check">
+                        I agree to the Terms of Use.
+                    </label>
+                </div>
+                <div class="invalid-feedback d-block" id="termsError"></div>
+            </div>
+            <div class="col-12">
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+                <div>
+                    <p class="fs-6 mt-2">
+                        Already have an account? <a class="text-decoration-none" href="/Login">Log in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -3,6 +3,7 @@ using ServiceBricks.Cache;
 using ServiceBricks.Logging;
 using ServiceBricks.Notification;
 using ServiceBricks.Security;
+using ServiceBricks.Work;
 using WebApp.Extensions;
 
 namespace WebApp
@@ -22,6 +23,7 @@ namespace WebApp
             services.AddServiceBricksCacheClient(Configuration);
             services.AddServiceBricksNotificationClient(Configuration);
             services.AddServiceBricksSecurityClient(Configuration);
+            services.AddServiceBricksWorkClient(Configuration);
             services.AddCustomWebsite(Configuration);
         }
 

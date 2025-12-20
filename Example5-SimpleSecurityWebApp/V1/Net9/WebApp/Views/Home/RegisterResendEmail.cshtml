@@ -1,0 +1,37 @@
+﻿@model WebApp.ViewModel.Home.ForgotPasswordViewModel
+@{
+    ViewBag.Title = "Resend Confirmation Email";
+    ViewBag.Description = "Resend Confirmation Email";
+    ViewBag.Keywords = "Resend Confirmation Email";
+}
+<div class="container">
+    <div class="row text-danger">
+        @Html.ValidationSummary()
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <form action="/RegisterResendEmail" method="post">
+                @Html.AntiForgeryToken()
+                <h1>Enter your email address to receive a confirmation email.</h1>
+                <div class="form-group input-group">
+                    <input id="Email" name="Email" class="form-control" type="email" placeholder="Email" required><span class="input-group-addon"><i class="icon-mail"></i></span>
+                </div>
+                <div class="text-center text-sm-right">
+                    <button class ="btn gradient-btn" type="submit">Send Email</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Email').focus();
+        });
+    </script>
+}
+

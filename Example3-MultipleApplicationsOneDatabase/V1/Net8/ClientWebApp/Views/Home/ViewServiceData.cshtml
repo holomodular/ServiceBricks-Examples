@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var log in Model.LogMessages)
+        @foreach(var log in Model.LogMessages)
         {
             <tr>
                 <td>@log.StorageKey</td>
@@ -32,7 +32,7 @@
                 <td>@log.Message</td>
             </tr>
         }
-        <tr>
+        <tr>            
         </tr>
     </tbody>
 </table>
@@ -92,32 +92,7 @@
         </tr>
     </tbody>
 </table>
-<h3>Logging on Notification Microservice</h3>
-<table class="table table-striped table-primary">
-    <thead>
-        <tr>
-            <td>StorageKey</td>
-            <td>Create Date</td>
-            <td>Application</td>
-            <td>Category</td>
-            <td>Message</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var log in Model.NotificationLogMessages)
-        {
-            <tr>
-                <td>@log.StorageKey</td>
-                <td>@log.CreateDate</td>
-                <td>@log.Application</td>
-                <td>@log.Category</td>
-                <td>@log.Message</td>
-            </tr>
-        }
-        <tr>
-        </tr>
-    </tbody>
-</table>
+
 
 <h2>Security Microservice</h2>
 <a class="btn btn-primary" href="/ViewServiceData?create=security">Create Audit Record</a>
@@ -167,6 +142,41 @@
                 <td>@user.RequestHeaders</td>
                 <td>@user.AuditType</td>
                 <td>@user.Data</td>
+            </tr>
+        }
+        <tr>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Work Microservice</h2>
+<a class="btn btn-primary" href="/ViewServiceData?create=work">Create Process Record</a>
+<h3>Process Records</h3>
+<table class="table table-striped table-primary">
+    <thead>
+        <tr>
+            <td>StorageKey</td>
+            <td>Create Date</td>
+            <td>Process Queue</td>
+            <td>Process Type</td>
+            <td>Process Data</td>
+            <td>Is Processing</td>
+            <td>Is Complete</td>
+            <td>Future Process Date</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var proc in Model.Processes)
+        {
+            <tr>
+                <td>@proc.StorageKey</td>
+                <td>@proc.CreateDate</td>
+                <td>@proc.ProcessQueue</td>
+                <td>@proc.ProcessType</td>
+                <td>@proc.ProcessData</td>
+                <td>@proc.IsProcessing</td>
+                <td>@proc.IsComplete</td>
+                <td>@proc.FutureProcessDate</td>
             </tr>
         }
         <tr>

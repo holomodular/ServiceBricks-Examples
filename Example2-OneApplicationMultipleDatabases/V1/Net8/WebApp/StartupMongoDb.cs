@@ -3,6 +3,7 @@ using ServiceBricks.Cache.MongoDb;
 using ServiceBricks.Logging.MongoDb;
 using ServiceBricks.Notification.MongoDb;
 using ServiceBricks.Security.MongoDb;
+using ServiceBricks.Work.MongoDb;
 using WebApp.Extensions;
 using WebApp.Model;
 
@@ -24,10 +25,10 @@ namespace WebApp
             services.AddServiceBricksLoggingMongoDb(Configuration);
             services.AddServiceBricksCacheMongoDb(Configuration);
             services.AddServiceBricksNotificationMongoDb(Configuration);
-            //services.AddServiceBricksNotificationSendGrid(Configuration); // optional
             services.AddServiceBricksSecurityMongoDb(Configuration);
-            ModuleRegistry.Instance.Register(WebAppModule.Instance); // Add to module registry for automapper (See Mapping folder)
+            services.AddServiceBricksWorkMongoDb(Configuration);
             services.AddServiceBricksComplete(Configuration);
+            ProblemDetailsMappingProfile.Register(MapperRegistry.Instance);
             services.AddCustomWebsite(Configuration);
         }
 

@@ -1,52 +1,159 @@
-﻿@model WebApp.ViewModel.Home.HomeViewModel
-@{
+﻿@{
     ViewBag.Title = "Welcome to ServiceBricks";
     ViewBag.Description = "Welcome to ServiceBricks";
     ViewBag.Keywords = "Welcome to ServiceBricks";
 }
-<h1>This is the Client Application</h1>
-<p>
-    This client application communicates to the server application via HttpClient REST API calls.
-    View the appsetting.json to change configurations.
-</p>
-<h2>View Microservices Data</h2>
-<p>
-    Click the button below to view the ServiceBricks microservices data.
-</p>
-<p>
-    <a class="btn btn-primary" href="/ViewServiceData">View Service Data</a>
-</p>
-<h2>IApiClient</h2>
-<p>
-    You access the various microservices using an IApiClient interface using dependency injection.
-    View the HomeController to see how easy it is to use.
-</p>
-<ul>
-    <li>
-        <b>Cache Microservice</b><br />
-        ServiceBricks.Cache.ICacheDataApiClient
-    </li>
-    <li>
-        <b>Logging Microservice</b><br />
-        ServiceBricks.Logging.ILogMessageApiClient<br />
-        ServiceBricks.Logging.IWebRequestMessageApiClient
-    </li>
-    <li>
-        <b>Notification Microservice</b><br />
-        ServiceBricks.Notification.INotifyMessageApiClient
-    </li>
-    <li>
-        <b>Security Microservice</b><br />
-        ServiceBricks.Security.IUserApiClient<br />
-        ServiceBricks.Security.IUserAuditApiClient<br />
-        ServiceBricks.Security.IUserClaimApiClient<br />
-        ServiceBricks.Security.IUserRoleApiClient<br />
-        ServiceBricks.Security.IUserTokenApiClient<br />
-        ServiceBricks.Security.IRoleApiClient<br />
-        ServiceBricks.Security.IRoleClaimApiClient<br />
-    </li>
-</ul>
-<h2>About ServiceBricks</h2>
-<p>
-    Please visit our website at: <a href="https://ServiceBricks.com" target="_blank">https://ServiceBricks.com</a> to learn more.
-</p>
+    <!-- Hero -->
+    <section class="hero glass mb-4">
+      <div class="hero-inner p-4 p-md-5">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+              <h1 class="purple">Client Application</h1>
+            <div class="small-label mb-2">ServiceBricks Web API Starter Application</div>
+            <h2 class="display-6 fw-semibold mb-3">              
+                Please wait for the Server Microservice to start.
+            </h2>            
+
+            <div class="mt-4 muted">
+              <span class="me-2"><i class="bi bi-link-45deg"></i></span>
+              <a href="https://ServiceBricks.com" target="_blank" rel="noopener">ServiceBricks.com</a>
+              <span class="mx-2">•</span>
+                    <a href="https://ServiceQuery.com" target="_blank" rel="noopener">ServiceQuery.com</a>
+                    <span class="mx-2">•</span>
+              <a href="https://HoloModular.com" target="_blank" rel="noopener">HoloModular LLC</a>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="glass rounded-4 p-3 p-md-4">
+              <div class="alert alert-soft mt-3 mb-0 rounded-4">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <span class="fw-semibold">Developer note:</span> This landing page ships with the test website to guide local development and integration testing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- ViewData -->
+<section id="viewdata" class="mb-4">
+    <div class="glass rounded-4 p-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+            <h2 class="h5 mb-0"><i class="bi bi-code-slash me-2"></i>View Service Data</h2>
+            <span class="chip"><i class="bi bi-plug"></i> Live</span>
+        </div>
+
+        <p class="muted mb-3">
+            View your service data by clicking the button below:
+            <a class="btn btn-primary" href="/ViewServiceData">View Your Microservice Data</a>
+        </p>
+
+    </div>
+</section>
+
+<!-- Usage -->
+<section id="usage" class="mb-4">
+    <div class="glass rounded-4 p-4">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+            <h2 class="h5 mb-0"><i class="bi bi-code-slash me-2"></i>Using ServiceBricks in Your <span class="purple">Client</span> Web App</h2>
+            <span class="chip"><i class="bi bi-plug"></i> DI + API Services</span>
+        </div>
+
+        <p class="muted mb-3">
+            ServiceBricks API services are designed to be easy to use from any ASP.NET Core app.
+            Just inject the <span class="kbd">IApiClient</span> (or a specific client interface) you want, then call methods like
+            <span class="kbd">Create</span>, <span class="kbd">Get</span>, <span class="kbd">Update</span>, <span class="kbd">Patch</span>, <span class="kbd">Validate</span>, and more.
+        </p>
+
+        <div class="row g-3">
+            <div class="col-lg-6">
+                <div class="small-label mb-2">Example: Inject a client and Create a Record</div>
+                <pre class="codeblock" id="usageCode">public class HomeController : Controller
+{
+    private readonly ILogMessageApiClient _client;
+
+    public HomeController(ILogMessageApiClient client)
+    {
+        _client = client;
+
+        // Create a record (sync example)
+        _client.Create(new ServiceBricks.Logging.LogMessageDto
+        {
+            // set any properties you want here
+        });
+    }
+}</pre>
+                <button class="btn btn-sm btn-outline-light mt-2" type="button" data-copy="#usageCode">
+                    <i class="bi bi-clipboard me-1"></i>Copy Code
+                </button>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="small-label mb-2">Why it feels seamless</div>
+                <div class="p-3 rounded-4 border border-light border-opacity-10" style="background: rgba(0,0,0,.18);">
+                    <ul class="list-tight muted mb-0">
+                        <li><span class="fw-semibold text-white">Same service calls</span> regardless of your configured storage provider.</li>
+                        <li>Swap providers by changing your startup class and connection string.</li>
+                        <li>Use sync or async methods based on your app’s needs.</li>
+                        <li>Everything stays consistent across environments (local, test, cloud).</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-soft mt-3 mb-0 rounded-4">
+                    <i class="bi bi-arrow-repeat me-2"></i>
+                    Configure a different storage provider — your controller/service/client code stays the same.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- About -->
+    <section class="mb-4">
+      <div class="glass rounded-4 p-4">
+        <h2 class="h5 mb-2"><i class="bi bi-info-circle me-2"></i>About ServiceBricks<sup>&reg;</sup></h2>
+        <p class="muted mb-0">
+          Learn more at <a href="https://ServiceBricks.com" target="_blank" rel="noopener">ServiceBricks.com</a>.
+          ServiceBricks is a product by <a href="https://HoloModular.com" target="_blank" rel="noopener">HoloModular LLC</a>.
+        </p>
+      </div>
+    </section>
+  
+
+@section Scripts
+{
+    <script>
+        // Set base URL text
+        (function(){
+          try {
+            const origin = window.location.origin || "";
+            if (origin) document.getElementById("baseUrl").textContent = origin;
+          } catch (e) { /* ignore */ }
+          document.getElementById("year").textContent = new Date().getFullYear();
+        })();
+
+        // Copy-to-clipboard helper
+        $(document).on("click", "[data-copy]", async function () {
+          const selector = $(this).attr("data-copy");
+          const el = document.querySelector(selector);
+          if (!el) return;
+
+          const text = (el.innerText || el.textContent || "").trim();
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (e) {
+            // Fallback
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+
+          $("#copyToast").stop(true,true).fadeIn(120).delay(900).fadeOut(250);
+        });
+    </script>
+}

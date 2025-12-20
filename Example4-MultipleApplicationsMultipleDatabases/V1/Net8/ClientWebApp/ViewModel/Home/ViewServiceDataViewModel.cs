@@ -2,7 +2,7 @@
 using ServiceBricks.Logging;
 using ServiceBricks.Notification;
 using ServiceBricks.Security;
-
+using ServiceBricks.Work;
 namespace WebApp.ViewModel.Home
 {
     public class ViewServiceDataViewModel
@@ -13,5 +13,6 @@ namespace WebApp.ViewModel.Home
         public List<CacheDataDto> CacheDatas { get; set; }
         public List<NotifyMessageDto> Notifications { get; set; }
         public List<LogMessageDto> NotificationLogMessages { get; set; }
+        public List<ProcessDto> Processes { get; set; }
     }
 }
