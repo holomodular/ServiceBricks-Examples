@@ -14,13 +14,15 @@ All of these examples use the official pre-built microservices we have available
 * [Logging Microservice](https://github.com/holomodular/ServiceBricks-Logging)
 * [Notification Microservice](https://github.com/holomodular/ServiceBricks-Notification)
 * [Security Microservice](https://github.com/holomodular/ServiceBricks-Security)
+* [Work Microservice](https://github.com/holomodular/ServiceBricks-Work)
 
 
 # Starting Multiple Projects
 Each of the examples below contain multiple web applications.
 After opening the solution in Visual Studio, right click the solution and select the options for **Configure Startup Projects**. 
-Select the radio option for Multiple Startup Projects and change the drop down for each project to be Start.
+Select the radio option for **Multiple Startup Projects** and change the drop down for each project to be **Start**.
 When you run the application, multiple browser windows will be displayed for each web application.
+All examples use the **InMemory database provider** by default.
 
 
 # Deployment Examples
@@ -33,7 +35,7 @@ This example demonstrates how to host the ServiceBricks platform in a **single w
 
 #### In-Memory Service Bus
 
-Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other.
+Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other (configured by default).
 
 ### Diagram
 
@@ -48,7 +50,7 @@ This example demonstrates how to host the ServiceBricks platform in a **single w
 
 #### In-Memory Service Bus
 
-Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other.
+Since all microservices are hosted within the same web application, we use the In-Memory Service Bus provider to allow microservices to communicate with each other (configured by default).
 
 ### Diagram
 
